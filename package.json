@@ -16,32 +16,32 @@
     "commands": [
       {
         "command": "template-admin.createProject",
-        "title": "TF Create from template",
+        "title": "Template Forge: Create from template",
         "shortTitle": "create a new project based on your template"
       },
       {
         "command": "template-admin.extract",
-        "title": "TF Extract components",
+        "title": "Template Forge: Extract components",
         "shortTitle": "extract components from your project to keep it in the template"
       },
       {
         "command": "template-admin.config",
-        "title": "TF Default project path",
+        "title": "Template Forge Default project path",
         "shortTitle": "Set a default path for your projects, you can also change it in the creation"
       },
       {
         "command": "template-admin.openTemplate",
-        "title": "TF Open template",
+        "title": "Template Forge: Open template",
         "shortTitle": "Open templates to modify as you wish"
       },
       {
         "command": "template-admin.deleteTemplate",
-        "title": "TF Delete template",
+        "title": "Template Forge: Delete template",
         "shortTitle": "Delete unused templates"
       },
       {
         "command": "template-admin.deleteComponent",
-        "title": "TF Delete component from template",
+        "title": "Template Forge: Delete component from template",
         "shortTitle": "Delete component from template"
       }
     ]
