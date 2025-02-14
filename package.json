@@ -1,0 +1,71 @@
+{
+  "name": "template-administrator",
+  "displayName": "template-administrator",
+  "description": "admin thats helps you to create a project in base of your template, incorporate new functions based in others projects and maintain your template",
+  "version": "0.0.1",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "template-admin.createProject",
+        "title": "Template Forge: Create from template",
+        "shortTitle": "create a new project based on your template"
+      },
+      {
+        "command": "template-admin.extract",
+        "title": "Template Forge: Extract components",
+        "shortTitle": "extract components from your project to keep it in the template"
+      },
+      {
+        "command": "template-admin.config",
+        "title": "Template Forge Default project path",
+        "shortTitle": "Set a default path for your projects, you can also change it in the creation"
+      },
+      {
+        "command": "template-admin.openTemplate",
+        "title": "Template Forge: Open template",
+        "shortTitle": "Open templates to modify as you wish"
+      },
+      {
+        "command": "template-admin.deleteTemplate",
+        "title": "Template Forge: Delete template",
+        "shortTitle": "Delete unused templates"
+      },
+      {
+        "command": "template-admin.deleteComponent",
+        "title": "Template Forge: Delete component from template",
+        "shortTitle": "Delete component from template"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "yarn run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "yarn run compile && yarn run lint",
+    "lint": "eslint src",
+    "test": "vscode-test",
+    "build": "tsc -p ."
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@types/sinon": "^17.0.3",
+    "@types/vscode": "^1.96.0",
+    "@typescript-eslint/eslint-plugin": "^8.17.0",
+    "@typescript-eslint/parser": "^8.17.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "eslint": "^9.16.0",
+    "sinon": "^19.0.2",
+    "typescript": "^5.7.3"
+  }
+}

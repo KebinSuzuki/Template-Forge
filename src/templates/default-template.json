@@ -1,0 +1,17 @@
+{
+  "directories": [ "src",
+    "src/components",
+    "styles",
+    "src/utils",
+    "src/services",
+    "src/hooks",
+    "src/context",
+    "src/store",
+    "src/types",
+    "test",
+    "src/app",
+    "src/styles"],
+  "files": [],
+  "dependencies": [],
+  "packageScripts": {}
+}
