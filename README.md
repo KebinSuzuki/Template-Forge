@@ -1,71 +1,64 @@
-# template-admin README
+# Template Forge
 
-This is the README for your extension "template-admin". After writing up a brief description, we recommend including the following sections.
+**Template Forge** is a VS Code extension that helps you create new projects based on your own customizable templates, and even extract components or features from existing projects to update your templates. Whether you’re bootstrapping a new Next.js app or consolidating frequently used components, Template Forge streamlines your workflow and keeps your templates up to date.
+
+![Template Forge Icon](./icons/icon.svg)
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- **Create Projects from Templates:**  
+  Generate a new project from a saved JSON template with a single command.
+  
+- **Extract Components:**  
+  Easily extract components and other project artifacts into your template configuration—complete with dependency detection and alias resolution.
+  
+- **Alias Handling:**  
+  Automatically convert alias imports to relative paths so that your extracted files work correctly in any project.
+  
+- **Dependency Management:**  
+  Detect external dependencies (excluding built-in Next.js components) and add them to your template’s dependency list for automatic installation.
+  
+- **Customizable Configuration:**  
+  Set default project paths and other settings to tailor the extension to your workflow.
 
-For example if there is an image subfolder under your extension project workspace:
+## Installation
 
-\!\[feature X\]\(images/feature-x.png\)
+1. **Install from the VS Code Marketplace:**  
+   Search for **Template Forge** in the Extensions view (`Ctrl+Shift+X`) and click **Install**.
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+2. **Or install manually:**  
+   Clone this repository and run `npm install` or `yarn` to install dependencies. Then compile the extension using `yarn compile` or `npm run compile`.
 
-## Requirements
+## Usage
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+### Creating a Project
 
-## Extension Settings
+1. Open the Command Palette (`Ctrl+Shift+P`).
+2. Type and select **Template Forge: Create Project**.
+3. Enter a project name.
+4. Provide the target directory (the extension will use your default if set).
+5. Choose a template from the list (the extension reads available JSON templates from its internal folder).
+6. Watch as a terminal opens and executes the command to generate your project.
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+### Extracting Components
 
-For example:
+1. Open the Command Palette and select **Template Forge: Extract**.
+2. Enter the file path of the component or artifact you wish to extract.
+3. Enter the project root directory (where your `tsconfig.json` or `jsconfig.json` is located).
+4. Choose an existing template to update or create a new one.
+5. The extension will scan the file, rewrite alias imports, and add any internal dependencies into the template configuration.
 
-This extension contributes the following settings:
+### Configuration
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+Template Forge allows you to store your default settings. For example, you can set a default project path:
 
-## Known Issues
+1. Open the Command Palette and select **Template Forge: Set Default Project Path**.
+2. Enter the path you wish to use as the default.
+3. The extension saves your configuration for future commands.
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+The configuration file is stored in VS Code’s global storage and follows this simple JSON format:
 
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+```json
+{
+  "defaultProjectPath": "C:\\Projects"
+}
