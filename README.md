@@ -6,6 +6,9 @@
 
 **Template Forge** is a VS Code extension that helps you create new projects based on your own customizable templates, and even extract components or features from existing projects to update your templates. Whether you're bootstrapping a new Next.js app or consolidating frequently used components, Template Forge streamlines your workflow and keeps your templates up to date.
 
+>[!NOTE]
+>Current Version: 1.0
+
 ## Features
 
 - **Create Projects from Templates:**  
@@ -77,3 +80,7 @@ The configuration file is stored in VS Code’s global storage and follows this 
 {
   "defaultProjectPath": "C:\\Projects"
 }
+```
+
+## Versions
+**1.0**  ***Only Works with nextjs apps***
