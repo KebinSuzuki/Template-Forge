@@ -1,8 +1,10 @@
 # Template Forge
 
-**Template Forge** is a VS Code extension that helps you create new projects based on your own customizable templates, and even extract components or features from existing projects to update your templates. Whether you’re bootstrapping a new Next.js app or consolidating frequently used components, Template Forge streamlines your workflow and keeps your templates up to date.
+<div align="center">
+  <img src="./icons/hammer-drop.svg" alt="Template Forge Icon" width="128" />
+</div>
 
-![Template Forge Icon](./icons/hammer-drop-mini.png)
+**Template Forge** is a VS Code extension that helps you create new projects based on your own customizable templates, and even extract components or features from existing projects to update your templates. Whether you're bootstrapping a new Next.js app or consolidating frequently used components, Template Forge streamlines your workflow and keeps your templates up to date.
 
 ## Features
 
@@ -20,12 +22,14 @@
   
 - **Customizable Configuration:**  
   Set default project paths and other settings to tailor the extension to your workflow.
+  
+- **Manage Templates:**  
+  Delete templates, open templates to view their contents, and remove components or folders from your template configuration.
 
 ## Installation
 
-1. **Install from the VS Code Marketplace:**  
+1. **Install from the VS Code Marketplace:**  
    Search for **Template Forge** in the Extensions view (`Ctrl+Shift+X`) and click **Install**.
-
 2. **Or install manually:**  
    Clone this repository and run `npm install` or `yarn` to install dependencies. Then compile the extension using `yarn compile` or `npm run compile`.
 
@@ -48,6 +52,17 @@
 4. Choose an existing template to update or create a new one.
 5. The extension will scan the file, rewrite alias imports, and add any internal dependencies into the template configuration.
 
+### Managing Templates
+
+- **Delete a Template:**  
+  Use **Template Forge: Delete Template** to remove an unwanted template.
+  
+- **Open a Template:**  
+  Use **Template Forge: Open Template** to view the contents of a template.
+  
+- **Delete a Component from a Template:**  
+  Use **Template Forge: Delete Component** to remove a specific component or folder from a template configuration.
+
 ### Configuration
 
 Template Forge allows you to store your default settings. For example, you can set a default project path:
@@ -56,7 +71,7 @@ Template Forge allows you to store your default settings. For example, you can s
 2. Enter the path you wish to use as the default.
 3. The extension saves your configuration for future commands.
 
-The configuration file is stored in VS Code’s global storage and follows this simple JSON format:
+The configuration file is stored in VS Code’s global storage and follows this simple JSON format:
 
 ```json
 {

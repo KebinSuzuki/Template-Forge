@@ -8,8 +8,6 @@
     "src/context",
     "src/store",
     "src/types",
-    "public",
-    "public/fonts",
     "test",
     "src/app",
     "src/styles"],

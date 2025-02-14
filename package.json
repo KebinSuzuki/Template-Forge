@@ -16,18 +16,33 @@
     "commands": [
       {
         "command": "template-admin.createProject",
-        "title": "TA Create from template",
+        "title": "TF Create from template",
         "shortTitle": "create a new project based on your template"
       },
       {
         "command": "template-admin.extract",
-        "title": "TA Extract components",
+        "title": "TF Extract components",
         "shortTitle": "extract components from your project to keep it in the template"
       },
       {
         "command": "template-admin.config",
-        "title": "TA default project path",
+        "title": "TF Default project path",
         "shortTitle": "Set a default path for your projects, you can also change it in the creation"
+      },
+      {
+        "command": "template-admin.openTemplate",
+        "title": "TF Open template",
+        "shortTitle": "Open templates to modify as you wish"
+      },
+      {
+        "command": "template-admin.deleteTemplate",
+        "title": "TF Delete template",
+        "shortTitle": "Delete unused templates"
+      },
+      {
+        "command": "template-admin.deleteComponent",
+        "title": "TF Delete component from template",
+        "shortTitle": "Delete component from template"
       }
     ]
   },

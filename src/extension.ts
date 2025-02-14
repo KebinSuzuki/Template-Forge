@@ -2,10 +2,11 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
 import { loadConfig, setDefaultProjectPath } from './config';
+import { deleteTemplate, openTemplate, deleteComponentFromTemplate } from './manageTemplates';
 
 export function activate(context: vscode.ExtensionContext) {
-	const disposable = vscode.commands.registerCommand('template-admin.createProject', async () => {
-         const config = loadConfig(context);
+	const createProjectCommand = vscode.commands.registerCommand('template-admin.createProject', async () => {
+        const config = loadConfig(context);
         // Prompt user for the project name
 		const projectName = await vscode.window.showInputBox({
 			prompt: 'Enter the project name',
@@ -19,13 +20,13 @@ export function activate(context: vscode.ExtensionContext) {
 
 		// Prompt user for the target directory
         const targetDirectory = await vscode.window.showInputBox({
-      prompt: 'Enter the target directory',
-      placeHolder: 'e.g., C:\\Projects',
-      value: config.defaultProjectPath || vscode.workspace.workspaceFolders?.[0]?.uri.fsPath || ''
+            prompt: 'Enter the target directory',
+            placeHolder: 'e.g., C:\\Projects',
+            value: config.defaultProjectPath || vscode.workspace.workspaceFolders?.[0]?.uri.fsPath || ''
         });
         if (!targetDirectory) {
-          vscode.window.showErrorMessage('Target directory is required!');
-          return;
+            vscode.window.showErrorMessage('Target directory is required!');
+            return;
         }
 		// Path to the templates directory
 		const templatesDir = path.join(context.extensionPath, 'src', 'templates');
@@ -172,8 +173,15 @@ export function activate(context: vscode.ExtensionContext) {
         await setDefaultProjectPath(context);
     });
 
-	context.subscriptions.push(disposable);
+	context.subscriptions.push(createProjectCommand);
 	context.subscriptions.push(extractFeaturesCommand);
+    context.subscriptions.push(setDefaultPathCommand);
+    // The manage functions
+    context.subscriptions.push(
+    vscode.commands.registerCommand('template-admin.deleteTemplate', () => deleteTemplate(context)),
+    vscode.commands.registerCommand('template-admin.openTemplate', () => openTemplate(context)),
+    vscode.commands.registerCommand('template-admin.deleteComponent', () => deleteComponentFromTemplate(context))
+    );
 }
 
 export function deactivate() {}
