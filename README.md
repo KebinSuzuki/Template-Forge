@@ -2,7 +2,7 @@
 
 **Template Forge** is a VS Code extension that helps you create new projects based on your own customizable templates, and even extract components or features from existing projects to update your templates. Whether you’re bootstrapping a new Next.js app or consolidating frequently used components, Template Forge streamlines your workflow and keeps your templates up to date.
 
-![Template Forge Icon](./icons/hammer-drop.svg)
+![Template Forge Icon](./icons/hammer-drop-mini.png)
 
 ## Features
 
