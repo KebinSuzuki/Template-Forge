@@ -1,7 +1,7 @@
 # Template Forge
 
 <div align="center">
-  <img src="./icons/hammer-drop.png" alt="Template Forge Icon" width="128" />
+  <img src="https://raw.githubusercontent.com/KamiForKitsune/Template-Forge/main/icons/hammer-drop.png" alt="Template Forge Icon" width="128" />
 </div>
 
 **Template Forge** is a VS Code extension that helps you create new projects based on your own customizable templates, and even extract components or features from existing projects to update your templates. Whether you're bootstrapping a new Next.js app or consolidating frequently used components, Template Forge streamlines your workflow and keeps your templates up to date.

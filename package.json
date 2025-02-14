@@ -1,6 +1,7 @@
 {
   "name": "template-administrator",
   "displayName": "template-administrator",
+  "icon": "icons/hammer-drop.png",
   "description": "admin thats helps you to create a project in base of your template, incorporate new functions based in others projects and maintain your template",
   "version": "0.0.1",
   "license": "MIT",
