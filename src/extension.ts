@@ -68,14 +68,14 @@ export function activate(context: vscode.ExtensionContext) {
 
 		// Path to the `create-project.ts` script
 		const scriptPath = path.join(context.extensionPath, 'src', 'create-project.ts');
-
+        
 		// Properly quote the paths to handle spaces
 		const quotedScriptPath = `"${scriptPath}"`;
 		const quotedProjectPath = `"${projectPath}"`;
 		const quotedTemplatePath = `"${path.join(templatesDir, selectedTemplate)}"`;
 
 		// Run the script using ts-node
-		const command = `npx ts-node ${quotedScriptPath} ${quotedProjectPath} ${quotedTemplatePath}`;
+		const command = `npx ts-node ${quotedScriptPath} ${quotedProjectPath} ${quotedTemplatePath} ${cli}`;
 
 		// Open a terminal to execute the command
 		const terminal = vscode.window.createTerminal('Create Project');

@@ -41,7 +41,7 @@
 ### Creating a Project
 
 1. Open the Command Palette (`Ctrl+Shift+P`).
-2. Type and select **Template Forge: Create Project**.
+2. Type and select **Template Forge: Create from template**.
 3. Enter a project name.
 4. Provide the target directory (the extension will use your default if set).
 5. Choose a template from the list (the extension reads available JSON templates from its internal folder).
@@ -49,7 +49,7 @@
 
 ### Extracting Components
 
-1. Open the Command Palette and select **Template Forge: Extract**.
+1. Open the Command Palette and select **Template Forge: Extract components**.
 2. Enter the file path of the component or artifact you wish to extract.
 3. Enter the project root directory (where your `tsconfig.json` or `jsconfig.json` is located).
 4. Choose an existing template to update or create a new one.
@@ -64,13 +64,13 @@
   Use **Template Forge: Open Template** to view the contents of a template.
   
 - **Delete a Component from a Template:**  
-  Use **Template Forge: Delete Component** to remove a specific component or folder from a template configuration.
+  Use **Template Forge: Delete Component from template** to remove a specific component or folder from a template configuration.
 
 ### Configuration
 
 Template Forge allows you to store your default settings. For example, you can set a default project path:
 
-1. Open the Command Palette and select **Template Forge: Set Default Project Path**.
+1. Open the Command Palette and select **Template Forge: Default project path**.
 2. Enter the path you wish to use as the default.
 3. The extension saves your configuration for future commands.
 

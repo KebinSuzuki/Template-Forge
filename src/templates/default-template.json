@@ -1,5 +1,5 @@
 {
-  "directories": [ "src",
+  "directories": [
     "src/components",
     "styles",
     "src/utils",
@@ -10,7 +10,8 @@
     "src/types",
     "test",
     "src/app",
-    "src/styles"],
+    "src/styles"
+  ],
   "files": [],
   "dependencies": [],
   "packageScripts": {}
