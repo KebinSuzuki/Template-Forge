@@ -3,7 +3,7 @@
   "displayName": "template-administrator",
   "icon": "icons/hammer-drop.png",
   "description": "admin thats helps you to create a project in base of your template, incorporate new functions based in others projects and maintain your template",
-  "version": "0.0.1",
+  "version": "1.0",
   "license": "MIT",
   "engines": {
     "vscode": "^1.96.0"
