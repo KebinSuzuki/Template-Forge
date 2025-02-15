@@ -1,11 +1,13 @@
-.vscode/**
-.vscode-test/**
-src/**
-.gitignore
-.yarnrc
-vsc-extension-quickstart.md
-**/tsconfig.json
-**/eslint.config.mjs
-**/*.map
-**/*.ts
-**/.vscode-test.*
+# Ignore everything by default
+**/*
+
+# But allow these:
+!out/**
+!src/templates/**
+!icons/**
+!package.json
+!README.md
+!CHANGELOG.md
+!LICENSE
+
+# If you need a .vscode folder or other specific folders, remove or invert their rules as needed.
