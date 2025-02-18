@@ -67,7 +67,7 @@ export function activate(context: vscode.ExtensionContext) {
 		const projectPath = path.resolve(targetDirectory, projectName);
 
 		// Path to the `create-project.ts` script
-		const scriptPath = path.join(context.extensionPath, 'src', 'create-project.ts');
+		const scriptPath = path.join(context.extensionPath, 'src', 'create-project.js');
         
 		// Properly quote the paths to handle spaces
 		const quotedScriptPath = `"${scriptPath}"`;
@@ -157,7 +157,7 @@ export function activate(context: vscode.ExtensionContext) {
             templatePath = path.join(templatesDir, selectedTemplate);
         }
 
-        const scriptPath = path.join(context.extensionPath, 'src', 'extract.ts');
+        const scriptPath = path.join(context.extensionPath, 'src', 'extract.js');
         const command = `npx ts-node "${scriptPath}" "${artifactToExtract}" "${templatePath}" "${projectRoot}"`;
 
         const terminal = vscode.window.createTerminal('Extract Features');
