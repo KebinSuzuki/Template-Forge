@@ -1,9 +1,10 @@
 {
-  "name": "template-administrator",
-  "displayName": "template-administrator",
+  "name": "template-forge",
+  "displayName": "Template Forge",
+  "publisher": "KebinSuzuki",
   "icon": "icons/hammer-drop.png",
   "description": "admin thats helps you to create a project in base of your template, incorporate new functions based in others projects and maintain your template",
-  "version": "0.0.1",
+  "version": "1.4.15",
   "license": "MIT",
   "engines": {
     "vscode": "^1.96.0"
@@ -31,7 +32,7 @@
       },
       {
         "command": "template-admin.config",
-        "title": "Template Forge Default project path",
+        "title": "Template Forge: Default project path",
         "shortTitle": "Set a default path for your projects, you can also change it in the creation"
       },
       {

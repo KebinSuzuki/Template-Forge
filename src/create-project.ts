@@ -71,7 +71,7 @@ async function main() {
   // Step 3: Install additional dependencies
   if (config.dependencies && config.dependencies.length > 0) {
     const filteredDependencies = config.dependencies.filter((dep: string) => !dep.startsWith('@/'));
-    console.log('Installing additional dependencies...');
+    console.log('Installing additional dependencies...', packageManager);
     try {
       if (packageManager === 'yarn'){
           execSync(`yarn add ${filteredDependencies.join(' ')}`, { stdio: 'inherit' });
