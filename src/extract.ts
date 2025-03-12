@@ -69,43 +69,89 @@ function updateAliasPaths(
   });
 }
 
+// helper function to keep the code clean
+function shouldCountAsExternal(dep: string, aliasMappings: { [key: string]: string }): boolean {
+  // Skip relative paths
+  if (dep.startsWith('.') || dep.startsWith('/')) {
+    return false;
+  }
+  // Skip if the module specifier starts with any alias
+  for (const alias of Object.keys(aliasMappings)) {
+    if (dep.startsWith(alias)) {
+      return false;
+    }
+  }
+  // Skip Next.js built-ins
+  if (dep === 'next' || dep.startsWith('next/')) {
+    return false;
+  }
+  return true;
+}
 /**
  * Scan a file’s content to extract external dependencies.
  * Ignores relative imports, alias-based imports, and any dependency that is part of Next.js.
  */
+// function getExternalDependencies(
+//   fileContent: string,
+//   aliasMappings: { [key: string]: string }
+// ): string[] {
+//   const dependencies = new Set<string>();
+//   const importRegex = /(?:import\s+(?:[^'"]*\s+from\s+)?|require\(\s*)['"]([^'"]+)['"]/g;
+//   let match;
+//   while ((match = importRegex.exec(fileContent)) !== null) {
+//     const dep = match[1];
+//     // Skip relative paths.
+//     if (dep.startsWith('.') || dep.startsWith('/')) {
+//       continue;
+//     }
+//     // Skip if the module specifier starts with any alias.
+//     let isAlias = false;
+//     for (const alias of Object.keys(aliasMappings)) {
+//       if (dep.startsWith(alias)) {
+//         isAlias = true;
+//         break;
+//       }
+//     }
+//     if (isAlias) {
+//       continue;
+//     }
+//     // Skip Next.js components
+//     if (dep === 'next' || dep.startsWith('next/')) {
+//       continue;
+//     }
+//     dependencies.add(dep);
+//   }
+//   return Array.from(dependencies);
+// }
 function getExternalDependencies(
   fileContent: string,
   aliasMappings: { [key: string]: string }
 ): string[] {
   const dependencies = new Set<string>();
+
+  // Existing pattern for static imports/require
   const importRegex = /(?:import\s+(?:[^'"]*\s+from\s+)?|require\(\s*)['"]([^'"]+)['"]/g;
   let match;
   while ((match = importRegex.exec(fileContent)) !== null) {
     const dep = match[1];
-    // Skip relative paths.
-    if (dep.startsWith('.') || dep.startsWith('/')) {
-      continue;
+    // Skip relative paths, aliases, and Next.js
+    if (shouldCountAsExternal(dep, aliasMappings)) {
+      dependencies.add(dep);
     }
-    // Skip if the module specifier starts with any alias.
-    let isAlias = false;
-    for (const alias of Object.keys(aliasMappings)) {
-      if (dep.startsWith(alias)) {
-        isAlias = true;
-        break;
-      }
-    }
-    if (isAlias) {
-      continue;
-    }
-    // Skip Next.js components
-    if (dep === 'next' || dep.startsWith('next/')) {
-      continue;
-    }
-    dependencies.add(dep);
   }
+
+  // NEW pattern for dynamic imports: import("...") 
+  const dynamicImportRegex = /import\(\s*(['"])([^'"]+)\1\s*\)/g;
+  while ((match = dynamicImportRegex.exec(fileContent)) !== null) {
+    const dep = match[2];
+    // Same filtering logic
+    if (shouldCountAsExternal(dep, aliasMappings)) {
+      dependencies.add(dep);
+    }
+  }
+
   return Array.from(dependencies);
 }
-
 /**
  * Helper to try to resolve a module file given a specifier and a base directory.
  * It checks for the file as-is, with common extensions, or as an index file in a directory.
@@ -139,6 +185,36 @@ function resolveModuleFile(moduleSpecifier: string, baseDir: string): string | n
  * Scan a file’s content to extract internal dependencies.
  * Returns an array of absolute file paths that are imported via a relative or alias-based path.
  */
+// function getInternalDependencies(
+//   fileContent: string,
+//   currentFileDir: string,
+//   aliasMappings: { [key: string]: string }
+// ): string[] {
+//   const deps: string[] = [];
+//   const importRegex = /(?:import\s+(?:[^'"]*\s+from\s+)?|require\(\s*)['"]([^'"]+)['"]/g;
+//   let match;
+//   while ((match = importRegex.exec(fileContent)) !== null) {
+//     const moduleSpecifier = match[1];
+//     let resolved: string | null = null;
+//     if (moduleSpecifier.startsWith('.')) {
+//       // Relative import: resolve relative to the current file.
+//       resolved = resolveModuleFile(moduleSpecifier, currentFileDir);
+//     } else {
+//       // Check if it matches any alias.
+//       for (const alias of Object.keys(aliasMappings)) {
+//         if (moduleSpecifier.startsWith(alias)) {
+//           const subPath = moduleSpecifier.slice(alias.length);
+//           resolved = resolveModuleFile(subPath, aliasMappings[alias]);
+//           break;
+//         }
+//       }
+//     }
+//     if (resolved) {
+//       deps.push(resolved);
+//     }
+//   }
+//   return deps;
+// }
 function getInternalDependencies(
   fileContent: string,
   currentFileDir: string,
@@ -146,29 +222,52 @@ function getInternalDependencies(
 ): string[] {
   const deps: string[] = [];
   const importRegex = /(?:import\s+(?:[^'"]*\s+from\s+)?|require\(\s*)['"]([^'"]+)['"]/g;
+  const dynamicImportRegex = /import\(\s*(['"])([^'"]+)\1\s*\)/g;
+
   let match;
+  // 1) Capture static imports
   while ((match = importRegex.exec(fileContent)) !== null) {
     const moduleSpecifier = match[1];
-    let resolved: string | null = null;
-    if (moduleSpecifier.startsWith('.')) {
-      // Relative import: resolve relative to the current file.
-      resolved = resolveModuleFile(moduleSpecifier, currentFileDir);
-    } else {
-      // Check if it matches any alias.
-      for (const alias of Object.keys(aliasMappings)) {
-        if (moduleSpecifier.startsWith(alias)) {
-          const subPath = moduleSpecifier.slice(alias.length);
-          resolved = resolveModuleFile(subPath, aliasMappings[alias]);
-          break;
-        }
-      }
-    }
-    if (resolved) {
-      deps.push(resolved);
+    const resolvedPath = resolveInternalDep(moduleSpecifier, currentFileDir, aliasMappings);
+    if (resolvedPath) {
+      deps.push(resolvedPath);
     }
   }
+
+  // 2) Capture dynamic imports
+  while ((match = dynamicImportRegex.exec(fileContent)) !== null) {
+    const moduleSpecifier = match[2];
+    const resolvedPath = resolveInternalDep(moduleSpecifier, currentFileDir, aliasMappings);
+    if (resolvedPath) {
+      deps.push(resolvedPath);
+    }
+  }
+
   return deps;
 }
+
+function resolveInternalDep(
+  moduleSpecifier: string,
+  currentFileDir: string,
+  aliasMappings: { [key: string]: string }
+): string | null {
+  // Skip absolute or external modules
+  if (!moduleSpecifier.startsWith('.') && !moduleSpecifier.startsWith('/')) {
+    // Check if it’s an alias
+    for (const alias of Object.keys(aliasMappings)) {
+      if (moduleSpecifier.startsWith(alias)) {
+        const subPath = moduleSpecifier.slice(alias.length);
+        return resolveModuleFile(subPath, aliasMappings[alias]);
+      }
+    }
+    return null; // It's external
+  } else {
+    // It's relative, so try to resolve
+    return resolveModuleFile(moduleSpecifier, currentFileDir);
+  }
+}
+
+
 
 /**
  * Extract a single file from the project.
